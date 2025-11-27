@@ -22,7 +22,7 @@ const ColoredItem = styled(Paper)(({ theme }) => ({
 }));
 
 export default {
-  title: 'MUI/Grid',
+  title: 'Component/Grid',
   component: Grid,
   tags: ['autodocs'],
   parameters: {
@@ -39,84 +39,38 @@ MUI Grid v7 컴포넌트입니다.
 ### 주요 변경사항 (v7)
 - \`xs\`, \`sm\`, \`md\` 등의 props 대신 \`size\` prop 사용
 - \`size={{ xs: 12, md: 6 }}\` 형태로 반응형 지정
+
+### 사용 패턴
+| 패턴 | 설명 | 예시 |
+|------|------|------|
+| 고정 크기 | 숫자로 컬럼 지정 | \`size={6}\` |
+| 반응형 | 브레이크포인트별 지정 | \`size={{ xs: 12, md: 6 }}\` |
+| 자동 확장 | 남은 공간 채움 | \`size="grow"\` |
         `,
       },
     },
   },
   argTypes: {
-    container: {
-      control: 'boolean',
-      description: 'Grid 컨테이너로 설정합니다. 자식 Grid 아이템을 감쌉니다.',
-      table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
-      },
-    },
     spacing: {
       control: 'select',
       options: [0, 1, 2, 3, 4, 5, 6, 7, 8],
       description: 'Grid 아이템 간의 간격을 지정합니다. (8px 단위)',
       table: {
-        type: { summary: 'number | object' },
+        type: { summary: 'number' },
         defaultValue: { summary: '0' },
-      },
-    },
-    size: {
-      control: 'object',
-      description: '브레이크포인트별 컬럼 크기를 지정합니다. (xs, sm, md, lg, xl)',
-      table: {
-        type: { summary: 'number | object' },
-      },
-    },
-    direction: {
-      control: 'select',
-      options: ['row', 'row-reverse', 'column', 'column-reverse'],
-      description: 'Flex direction을 지정합니다.',
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: 'row' },
-      },
-    },
-    justifyContent: {
-      control: 'select',
-      options: ['flex-start', 'center', 'flex-end', 'space-between', 'space-around', 'space-evenly'],
-      description: '주축 방향 정렬을 지정합니다.',
-      table: {
-        type: { summary: 'string' },
-      },
-    },
-    alignItems: {
-      control: 'select',
-      options: ['flex-start', 'center', 'flex-end', 'stretch', 'baseline'],
-      description: '교차축 방향 정렬을 지정합니다.',
-      table: {
-        type: { summary: 'string' },
       },
     },
   },
 };
 
-/** 기본 그리드 레이아웃 */
+/** 기본 그리드 - spacing 조절 가능 */
 export const Default = {
-  render: () => (
+  args: {
+    spacing: 2,
+  },
+  render: ({ spacing }) => (
     <Box sx={ { flexGrow: 1 } }>
-      <Grid container spacing={ 2 }>
-        <Grid size={ 8 }>
-          <Item>size=8</Item>
-        </Grid>
-        <Grid size={ 4 }>
-          <Item>size=4</Item>
-        </Grid>
-      </Grid>
-    </Box>
-  ),
-};
-
-/** 기본 그리드 - 8:4 / 4:8 비율 */
-export const BasicGrid = {
-  render: () => (
-    <Box sx={ { flexGrow: 1 } }>
-      <Grid container spacing={ 2 }>
+      <Grid container spacing={ spacing }>
         <Grid size={ 8 }>
           <Item>size=8</Item>
         </Grid>
@@ -136,9 +90,12 @@ export const BasicGrid = {
 
 /** 균등 컬럼 - 3등분 */
 export const EqualColumns = {
-  render: () => (
+  args: {
+    spacing: 2,
+  },
+  render: ({ spacing }) => (
     <Box sx={ { flexGrow: 1 } }>
-      <Grid container spacing={ 2 }>
+      <Grid container spacing={ spacing }>
         <Grid size={ 4 }>
           <Item>size=4</Item>
         </Grid>
@@ -155,9 +112,12 @@ export const EqualColumns = {
 
 /** 반응형 그리드 - 브레이크포인트별 다른 크기 */
 export const Responsive = {
-  render: () => (
+  args: {
+    spacing: 2,
+  },
+  render: ({ spacing }) => (
     <Box sx={ { flexGrow: 1 } }>
-      <Grid container spacing={ 2 }>
+      <Grid container spacing={ spacing }>
         <Grid size={ { xs: 12, sm: 6, md: 4 } }>
           <ColoredItem>xs=12 sm=6 md=4</ColoredItem>
         </Grid>
@@ -174,9 +134,12 @@ export const Responsive = {
 
 /** 자동 레이아웃 - grow 사용 */
 export const AutoLayout = {
-  render: () => (
+  args: {
+    spacing: 2,
+  },
+  render: ({ spacing }) => (
     <Box sx={ { flexGrow: 1 } }>
-      <Grid container spacing={ 2 }>
+      <Grid container spacing={ spacing }>
         <Grid size="grow">
           <Item>grow</Item>
         </Grid>
@@ -193,13 +156,16 @@ export const AutoLayout = {
 
 /** 중첩 그리드 */
 export const NestedGrid = {
-  render: () => (
+  args: {
+    spacing: 2,
+  },
+  render: ({ spacing }) => (
     <Box sx={ { flexGrow: 1 } }>
-      <Grid container spacing={ 2 }>
+      <Grid container spacing={ spacing }>
         <Grid size={ 12 }>
           <Item>size=12 (Parent)</Item>
         </Grid>
-        <Grid container size={ 12 } spacing={ 2 }>
+        <Grid container size={ 12 } spacing={ spacing }>
           <Grid size={ 6 }>
             <ColoredItem>Nested size=6</ColoredItem>
           </Grid>
@@ -212,8 +178,8 @@ export const NestedGrid = {
   ),
 };
 
-/** Spacing 변형 - 간격 비교 */
-export const Spacing = {
+/** Spacing 비교 - 다양한 간격 한눈에 보기 */
+export const SpacingComparison = {
   render: () => (
     <Box sx={ { flexGrow: 1 } }>
       <Grid container spacing={ 1 } sx={ { mb: 2 } }>

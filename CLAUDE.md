@@ -149,14 +149,20 @@ src/
   styles/               # 전역 스타일 또는 테마
   assets/               # 이미지, 폰트, 비디오 등 정적 자원
 
-stories/                # 스토리북 스토리 전용 폴더
+  stories/              # 스토리북 스토리 전용 폴더
+    overview/           # 프로젝트 소개, 가이드
+    style/              # 색상, 타이포그래피, 아이콘
+    component/          # 재사용 가능한 UI 컴포넌트
+    template/           # 컴포넌트 조합 템플릿
+    page/               # 전체 페이지 레이아웃
+
 docs/                   # 프로젝트 문서
 .storybook/             # Storybook 설정
 ```
 
 ### Storybook 파일 위치 규칙
-- `.stories.jsx` 파일은 해당 컴포넌트와 **같은 폴더**에 위치
-- Storybook 구조: `1. Style/` → `2. Components/` → `3. Pages/`
+- `.stories.jsx` 파일은 `src/stories/` 하위 섹션 폴더에 위치
+- Storybook 사이드바 순서: `Overview` → `Style` → `Component` → `Template` → `Page`
 
 ---
 
@@ -172,7 +178,7 @@ docs/                   # 프로젝트 문서
 
 ### 스토리 파일 구조
 1. **parameters.docs.description**: 문서 상단에 마크다운으로 타이틀/설명 표시
-2. **argTypes**: 각 props의 control 타입 정의 (select, boolean 등)
+2. **argTypes**: 단일 값으로 제어 가능한 props만 정의
 3. **Default Story**: 기본 사용 예시 (autodocs용)
 4. **Variation Stories**: 각 props별 변형 스토리
 
@@ -191,16 +197,18 @@ export default {
 
 컴포넌트에 대한 상세 설명을 마크다운으로 작성합니다.
 
-### 주요 특징
-- 특징 1
-- 특징 2
+### 사용 패턴
+| 패턴 | 설명 | 예시 |
+|------|------|------|
+| 패턴1 | 설명1 | \`예시코드\` |
         `,
       },
     },
   },
+  // 단일 값으로 제어 가능한 props만 argTypes에 정의
   argTypes: {
     propName: {
-      control: 'select', // or 'boolean', 'text', 'number', 'color'
+      control: 'select',
       options: ['option1', 'option2'],
       description: 'prop에 대한 설명',
       table: {
@@ -212,20 +220,38 @@ export default {
 };
 ```
 
-### Variation Story 작성법
+### 스토리 작성 패턴
+
+#### 1. 단일 컴포넌트 (Button 등) - args만 사용
 ```jsx
-/** 기본 상태 */
 export const Default = {
   args: {
     variant: 'contained',
-    children: 'Button Text',
+    children: 'Button',
   },
 };
+```
 
-/** 여러 변형 비교 */
+#### 2. 복합 컴포넌트 (Grid 등) - args + render 조합
+```jsx
+export const Default = {
+  args: {
+    spacing: 2,
+  },
+  render: ({ spacing }) => (
+    <Grid container spacing={ spacing }>
+      <Grid size={ 6 }><Item>A</Item></Grid>
+      <Grid size={ 6 }><Item>B</Item></Grid>
+    </Grid>
+  ),
+};
+```
+
+#### 3. 비교용 스토리 - render만 사용
+```jsx
 export const AllVariants = {
   render: () => (
-    <Stack spacing={2} direction="row">
+    <Stack spacing={ 2 } direction="row">
       <Component variant="a">A</Component>
       <Component variant="b">B</Component>
     </Stack>
@@ -233,11 +259,50 @@ export const AllVariants = {
 };
 ```
 
+### argTypes 작성 원칙
+- **단일 값 제어 가능한 props만** argTypes에 정의
+- 복잡한 객체/배열 props는 문서 설명으로 대체
+- 예: `spacing` (숫자) ✅, `size={{ xs: 12, md: 6 }}` (객체) ❌
+
 ### 스토리 네이밍 규칙
 - Default: 기본 상태
 - AllVariants: 모든 변형 한눈에 보기
 - Colors: 색상 변형
 - Sizes: 크기 변형
 - States: 상태 변형 (disabled, loading 등)
-- WithIcon: 아이콘 포함 변형
 - Responsive: 반응형 레이아웃
+- [Name]Comparison: 여러 값 비교용 (control 미연동)
+
+### 사이드바 디렉토리 구조
+
+Storybook 사이드바는 다음 순서로 정렬됩니다:
+
+| 순서 | 섹션 | 설명 | 폴더 |
+|------|------|------|------|
+| 1 | **Overview** | 프로젝트 소개, 가이드 | `stories/overview/` |
+| 2 | **Style** | 색상, 타이포그래피, 아이콘 | `stories/style/` |
+| 3 | **Component** | 재사용 가능한 UI 컴포넌트 | `stories/component/` |
+| 4 | **Template** | 컴포넌트 조합 템플릿 | `stories/template/` |
+| 5 | **Page** | 전체 페이지 레이아웃 | `stories/page/` |
+
+각 섹션 내부는 **alphabetical** 순으로 자동 정렬됩니다.
+
+### 스토리 title 작성법
+```jsx
+// Overview 섹션
+title: 'Overview/Introduction'
+
+// Style 섹션
+title: 'Style/Colors'
+title: 'Style/Typography'
+
+// Component 섹션
+title: 'Component/Button'
+title: 'Component/Grid'
+
+// Template 섹션
+title: 'Template/CardGrid'
+
+// Page 섹션
+title: 'Page/MainPage'
+```
