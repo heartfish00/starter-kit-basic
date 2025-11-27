@@ -3,6 +3,20 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 import theme from '../src/styles/theme';
 
+// Google Material Symbols 폰트 로드 (Outlined, Rounded, Sharp)
+const materialSymbolsStyles = [
+  'Material+Symbols+Outlined',
+  'Material+Symbols+Rounded',
+  'Material+Symbols+Sharp',
+];
+
+materialSymbolsStyles.forEach((family) => {
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = `https://fonts.googleapis.com/css2?family=${family}:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap`;
+  document.head.appendChild(link);
+});
+
 /** @type { import('@storybook/react-vite').Preview } */
 const preview = {
   parameters: {
@@ -19,7 +33,7 @@ const preview = {
       storySort: {
         order: [
           'Overview',
-          'Style',
+          'Style', ['Overview', 'Colors', 'Typography', 'Icons'],
           'Component',
           'Template',
           'Page',
