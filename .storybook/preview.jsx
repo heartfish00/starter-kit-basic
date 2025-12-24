@@ -17,7 +17,7 @@ materialSymbolsStyles.forEach((family) => {
   document.head.appendChild(link);
 });
 
-/** @type { import('@storybook/react-vite').Preview } */
+/** @type { import('@storybook/react').Preview } */
 const preview = {
   parameters: {
     controls: {
