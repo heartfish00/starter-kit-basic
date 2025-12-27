@@ -1,7 +1,9 @@
+import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
-export default {
+const meta: Meta<typeof Button> = {
   title: 'Component/Button',
   component: Button,
   tags: ['autodocs'],
@@ -73,8 +75,11 @@ variant, color, size 등의 props를 조합하여 원하는 스타일을 만들 
   },
 };
 
+export default meta;
+type Story = StoryObj<typeof Button>;
+
 /** 기본 버튼 */
-export const Default = {
+export const Default: Story = {
   args: {
     variant: 'contained',
     children: 'Button',
@@ -82,7 +87,7 @@ export const Default = {
 };
 
 /** Contained 버튼 - 강조가 필요한 주요 액션에 사용 */
-export const Contained = {
+export const Contained: Story = {
   args: {
     variant: 'contained',
     children: 'Contained Button',
@@ -90,7 +95,7 @@ export const Contained = {
 };
 
 /** Outlined 버튼 - 보조 액션에 사용 */
-export const Outlined = {
+export const Outlined: Story = {
   args: {
     variant: 'outlined',
     children: 'Outlined Button',
@@ -98,7 +103,7 @@ export const Outlined = {
 };
 
 /** Text 버튼 - 가장 낮은 강조 수준의 액션에 사용 */
-export const Text = {
+export const Text: Story = {
   args: {
     variant: 'text',
     children: 'Text Button',
@@ -106,9 +111,9 @@ export const Text = {
 };
 
 /** 모든 Variant 비교 */
-export const AllVariants = {
+export const AllVariants: Story = {
   render: () => (
-    <Stack spacing={ 2 } direction="row">
+    <Stack spacing={2} direction="row">
       <Button variant="text">Text</Button>
       <Button variant="contained">Contained</Button>
       <Button variant="outlined">Outlined</Button>
@@ -117,9 +122,9 @@ export const AllVariants = {
 };
 
 /** 색상 변형 - Primary, Secondary, Success, Error, Info, Warning */
-export const Colors = {
+export const Colors: Story = {
   render: () => (
-    <Stack spacing={ 2 } direction="row" flexWrap="wrap" useFlexGap>
+    <Stack spacing={2} direction="row" flexWrap="wrap" useFlexGap>
       <Button variant="contained" color="primary">Primary</Button>
       <Button variant="contained" color="secondary">Secondary</Button>
       <Button variant="contained" color="success">Success</Button>
@@ -131,9 +136,9 @@ export const Colors = {
 };
 
 /** 크기 변형 - Small, Medium, Large */
-export const Sizes = {
+export const Sizes: Story = {
   render: () => (
-    <Stack spacing={ 2 } direction="row" alignItems="center">
+    <Stack spacing={2} direction="row" alignItems="center">
       <Button variant="contained" size="small">Small</Button>
       <Button variant="contained" size="medium">Medium</Button>
       <Button variant="contained" size="large">Large</Button>
@@ -142,9 +147,9 @@ export const Sizes = {
 };
 
 /** 비활성화 상태 */
-export const Disabled = {
+export const Disabled: Story = {
   render: () => (
-    <Stack spacing={ 2 } direction="row">
+    <Stack spacing={2} direction="row">
       <Button variant="text" disabled>Text</Button>
       <Button variant="contained" disabled>Contained</Button>
       <Button variant="outlined" disabled>Outlined</Button>

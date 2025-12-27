@@ -1,3 +1,5 @@
+import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -12,7 +14,7 @@ import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Grid';
 
-export default {
+const meta: Meta<typeof Card> = {
   title: 'Component/Card',
   component: Card,
   tags: ['autodocs'],
@@ -59,14 +61,17 @@ export default {
   },
 };
 
+export default meta;
+type Story = StoryObj<typeof Card>;
+
 /** 기본 카드 */
-export const Default = {
+export const Default: Story = {
   args: {
     elevation: 1,
     variant: 'elevation',
   },
   render: (args) => (
-    <Card sx={ { maxWidth: 345 } } elevation={ args.elevation } variant={ args.variant }>
+    <Card sx={{ maxWidth: 345 }} elevation={args.elevation} variant={args.variant}>
       <CardContent>
         <Typography variant="h5" component="div" gutterBottom>
           카드 제목
@@ -85,9 +90,9 @@ export const Default = {
 };
 
 /** 이미지가 있는 카드 */
-export const WithMedia = {
+export const WithMedia: Story = {
   render: () => (
-    <Card sx={ { maxWidth: 345 } }>
+    <Card sx={{ maxWidth: 345 }}>
       <CardMedia
         component="img"
         height="140"
@@ -112,18 +117,18 @@ export const WithMedia = {
 };
 
 /** 헤더가 있는 카드 */
-export const WithHeader = {
+export const WithHeader: Story = {
   render: () => (
-    <Card sx={ { maxWidth: 345 } }>
+    <Card sx={{ maxWidth: 345 }}>
       <CardHeader
         avatar={
-          <Avatar sx={ { bgcolor: 'primary.main' } }>
+          <Avatar sx={{ bgcolor: 'primary.main' }}>
             K
           </Avatar>
         }
         action={
           <IconButton>
-            <Box component="span" sx={ { fontSize: 20 } }>⋮</Box>
+            <Box component="span" sx={{ fontSize: 20 }}>⋮</Box>
           </IconButton>
         }
         title="김철수"
@@ -142,13 +147,13 @@ export const WithHeader = {
       </CardContent>
       <CardActions disableSpacing>
         <IconButton>
-          <Box component="span" sx={ { fontSize: 20 } }>♡</Box>
+          <Box component="span" sx={{ fontSize: 20 }}>♡</Box>
         </IconButton>
         <IconButton>
-          <Box component="span" sx={ { fontSize: 20 } }>💬</Box>
+          <Box component="span" sx={{ fontSize: 20 }}>💬</Box>
         </IconButton>
         <IconButton>
-          <Box component="span" sx={ { fontSize: 20 } }>↗</Box>
+          <Box component="span" sx={{ fontSize: 20 }}>↗</Box>
         </IconButton>
       </CardActions>
     </Card>
@@ -156,14 +161,14 @@ export const WithHeader = {
 };
 
 /** Outlined 카드 */
-export const Outlined = {
+export const OutlinedCard: Story = {
   render: () => (
-    <Card variant="outlined" sx={ { maxWidth: 345 } }>
+    <Card variant="outlined" sx={{ maxWidth: 345 }}>
       <CardContent>
         <Typography variant="overline" color="text.secondary">
           OUTLINED
         </Typography>
-        <Typography variant="h5" component="div" sx={ { mb: 1.5 } }>
+        <Typography variant="h5" component="div" sx={{ mb: 1.5 }}>
           Outlined 카드
         </Typography>
         <Typography variant="body2" color="text.secondary">
@@ -179,27 +184,27 @@ export const Outlined = {
 };
 
 /** Elevation 비교 */
-export const Elevations = {
+export const Elevations: Story = {
   render: () => (
-    <Stack direction="row" spacing={ 2 } flexWrap="wrap" useFlexGap>
-      { [0, 1, 2, 3, 4].map((elevation) => (
-        <Card key={ elevation } elevation={ elevation } sx={ { width: 120, height: 80 } }>
+    <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
+      {[0, 1, 2, 3, 4].map((elevation) => (
+        <Card key={elevation} elevation={elevation} sx={{ width: 120, height: 80 }}>
           <CardContent>
             <Typography variant="caption" color="text.secondary">
               elevation
             </Typography>
-            <Typography variant="h6">{ elevation }</Typography>
+            <Typography variant="h6">{elevation}</Typography>
           </CardContent>
         </Card>
-      )) }
+      ))}
     </Stack>
   ),
 };
 
 /** 상품 카드 */
-export const ProductCard = {
+export const ProductCard: Story = {
   render: () => (
-    <Card sx={ { maxWidth: 280 } }>
+    <Card sx={{ maxWidth: 280 }}>
       <CardMedia
         component="img"
         height="200"
@@ -207,23 +212,23 @@ export const ProductCard = {
         alt="상품 이미지"
       />
       <CardContent>
-        <Box sx={ { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 } }>
-          <Typography variant="subtitle1" sx={ { fontWeight: 600 } }>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
+          <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
             프리미엄 무선 이어폰
           </Typography>
           <Chip label="NEW" size="small" color="primary" />
         </Box>
-        <Typography variant="body2" color="text.secondary" sx={ { mb: 2 } }>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
           고품질 사운드와 편안한 착용감
         </Typography>
-        <Box sx={ { display: 'flex', alignItems: 'baseline', gap: 1 } }>
-          <Typography variant="h6" color="primary" sx={ { fontWeight: 700 } }>
+        <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 1 }}>
+          <Typography variant="h6" color="primary" sx={{ fontWeight: 700 }}>
             ₩89,000
           </Typography>
           <Typography
             variant="body2"
             color="text.secondary"
-            sx={ { textDecoration: 'line-through' } }
+            sx={{ textDecoration: 'line-through' }}
           >
             ₩120,000
           </Typography>
@@ -239,9 +244,9 @@ export const ProductCard = {
 };
 
 /** 블로그 포스트 카드 */
-export const BlogPostCard = {
+export const BlogPostCard: Story = {
   render: () => (
-    <Card sx={ { maxWidth: 400 } }>
+    <Card sx={{ maxWidth: 400 }}>
       <CardMedia
         component="img"
         height="180"
@@ -249,21 +254,21 @@ export const BlogPostCard = {
         alt="블로그 썸네일"
       />
       <CardContent>
-        <Stack direction="row" spacing={ 1 } sx={ { mb: 1 } }>
+        <Stack direction="row" spacing={1} sx={{ mb: 1 }}>
           <Chip label="React" size="small" variant="outlined" />
           <Chip label="TypeScript" size="small" variant="outlined" />
         </Stack>
-        <Typography variant="h6" gutterBottom sx={ { fontWeight: 600 } }>
+        <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
           React 19의 새로운 기능 살펴보기
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={ { mb: 2 } }>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
           React 19에서 추가된 새로운 기능들과 성능 개선 사항에 대해 알아봅니다.
           Actions, use(), 그리고 새로운 훅들...
         </Typography>
-        <Box sx={ { display: 'flex', alignItems: 'center', gap: 2 } }>
-          <Avatar sx={ { width: 32, height: 32, bgcolor: 'secondary.main' } }>D</Avatar>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <Avatar sx={{ width: 32, height: 32, bgcolor: 'secondary.main' }}>D</Avatar>
           <Box>
-            <Typography variant="caption" sx={ { fontWeight: 500 } }>
+            <Typography variant="caption" sx={{ fontWeight: 500 }}>
               개발자 김
             </Typography>
             <Typography variant="caption" color="text.secondary" display="block">
@@ -277,36 +282,36 @@ export const BlogPostCard = {
 };
 
 /** 프로필 카드 */
-export const ProfileCard = {
+export const ProfileCard: Story = {
   render: () => (
-    <Card sx={ { maxWidth: 300, textAlign: 'center' } }>
-      <Box sx={ { pt: 3 } }>
+    <Card sx={{ maxWidth: 300, textAlign: 'center' }}>
+      <Box sx={{ pt: 3 }}>
         <Avatar
-          sx={ {
+          sx={{
             width: 80,
             height: 80,
             mx: 'auto',
             bgcolor: 'primary.main',
             fontSize: '2rem',
-          } }
+          }}
         >
           JS
         </Avatar>
       </Box>
       <CardContent>
-        <Typography variant="h6" sx={ { fontWeight: 600 } }>
+        <Typography variant="h6" sx={{ fontWeight: 600 }}>
           정수민
         </Typography>
         <Typography variant="body2" color="text.secondary" gutterBottom>
           Frontend Developer
         </Typography>
-        <Stack direction="row" spacing={ 1 } justifyContent="center" sx={ { mt: 2 } }>
+        <Stack direction="row" spacing={1} justifyContent="center" sx={{ mt: 2 }}>
           <Chip label="React" size="small" />
           <Chip label="TypeScript" size="small" />
           <Chip label="MUI" size="small" />
         </Stack>
       </CardContent>
-      <CardActions sx={ { justifyContent: 'center', pb: 2 } }>
+      <CardActions sx={{ justifyContent: 'center', pb: 2 }}>
         <Button variant="outlined" size="small">
           프로필 보기
         </Button>
@@ -319,15 +324,15 @@ export const ProfileCard = {
 };
 
 /** 통계 카드 */
-export const StatCard = {
+export const StatCard: Story = {
   render: () => (
-    <Stack direction="row" spacing={ 2 }>
-      <Card sx={ { minWidth: 180 } }>
+    <Stack direction="row" spacing={2}>
+      <Card sx={{ minWidth: 180 }}>
         <CardContent>
           <Typography variant="overline" color="text.secondary">
             총 방문자
           </Typography>
-          <Typography variant="h4" sx={ { fontWeight: 700 } }>
+          <Typography variant="h4" sx={{ fontWeight: 700 }}>
             12,543
           </Typography>
           <Typography variant="caption" color="success.main">
@@ -335,12 +340,12 @@ export const StatCard = {
           </Typography>
         </CardContent>
       </Card>
-      <Card sx={ { minWidth: 180 } }>
+      <Card sx={{ minWidth: 180 }}>
         <CardContent>
           <Typography variant="overline" color="text.secondary">
             신규 가입
           </Typography>
-          <Typography variant="h4" sx={ { fontWeight: 700 } }>
+          <Typography variant="h4" sx={{ fontWeight: 700 }}>
             847
           </Typography>
           <Typography variant="caption" color="error.main">
@@ -348,12 +353,12 @@ export const StatCard = {
           </Typography>
         </CardContent>
       </Card>
-      <Card sx={ { minWidth: 180 } }>
+      <Card sx={{ minWidth: 180 }}>
         <CardContent>
           <Typography variant="overline" color="text.secondary">
             전환율
           </Typography>
-          <Typography variant="h4" sx={ { fontWeight: 700 } }>
+          <Typography variant="h4" sx={{ fontWeight: 700 }}>
             4.8%
           </Typography>
           <Typography variant="caption" color="success.main">
@@ -366,22 +371,22 @@ export const StatCard = {
 };
 
 /** 카드 그리드 */
-export const CardGrid = {
+export const CardGrid: Story = {
   render: () => (
-    <Box sx={ { width: 800 } }>
-      <Grid container spacing={ 3 }>
-        { [1, 2, 3, 4, 5, 6].map((item) => (
-          <Grid size={ { xs: 12, sm: 6, md: 4 } } key={ item }>
+    <Box sx={{ width: 800 }}>
+      <Grid container spacing={3}>
+        {[1, 2, 3, 4, 5, 6].map((item) => (
+          <Grid size={{ xs: 12, sm: 6, md: 4 }} key={item}>
             <Card>
               <CardMedia
                 component="img"
                 height="120"
-                image={ `https://picsum.photos/seed/grid${item}/300/120` }
-                alt={ `이미지 ${item}` }
+                image={`https://picsum.photos/seed/grid${item}/300/120`}
+                alt={`이미지 ${item}`}
               />
               <CardContent>
-                <Typography variant="subtitle1" sx={ { fontWeight: 600 } }>
-                  카드 제목 { item }
+                <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                  카드 제목 {item}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   카드 설명 텍스트입니다.
@@ -389,7 +394,7 @@ export const CardGrid = {
               </CardContent>
             </Card>
           </Grid>
-        )) }
+        ))}
       </Grid>
     </Box>
   ),

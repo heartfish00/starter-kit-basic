@@ -1,20 +1,39 @@
 'use client';
 
-import React from 'react';
-import createCache from '@emotion/cache';
+import React, { ReactNode, useState } from 'react';
+import createCache, { EmotionCache } from '@emotion/cache';
 import { useServerInsertedHTML } from 'next/navigation';
 import { CacheProvider } from '@emotion/react';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from '../styles/theme';
 
+/**
+ * ThemeRegistry 컴포넌트
+ *
+ * Props:
+ * @param {ReactNode} children - 테마가 적용될 자식 요소들 [Required]
+ *
+ * Example usage:
+ * <ThemeRegistry>{children}</ThemeRegistry>
+ */
+
+interface ThemeRegistryProps {
+  children: ReactNode;
+}
+
+interface CacheState {
+  cache: EmotionCache;
+  flush: () => string[];
+}
+
 // This implementation is based on the MUI Next.js App Router guide
-export default function ThemeRegistry({ children }) {
-  const [{ cache, flush }] = React.useState(() => {
+export default function ThemeRegistry({ children }: ThemeRegistryProps): React.ReactElement {
+  const [{ cache, flush }] = useState<CacheState>(() => {
     const cache = createCache({ key: 'mui' });
     cache.compat = true;
     const prevInsert = cache.insert;
-    let inserted = [];
+    let inserted: string[] = [];
     cache.insert = (...args) => {
       const serialized = args[1];
       if (cache.inserted[serialized.name] === undefined) {
@@ -22,7 +41,7 @@ export default function ThemeRegistry({ children }) {
       }
       return prevInsert(...args);
     };
-    const flush = () => {
+    const flush = (): string[] => {
       const prevInserted = inserted;
       inserted = [];
       return prevInserted;

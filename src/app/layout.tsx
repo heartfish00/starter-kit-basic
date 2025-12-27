@@ -1,12 +1,18 @@
 import './globals.css';
+import { Metadata } from 'next';
+import { ReactNode } from 'react';
 import ThemeRegistry from './ThemeRegistry';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Starter Kit Basic',
   description: 'Next.js + MUI + Bun Starter Kit',
 };
 
-export default function RootLayout({ children }) {
+interface RootLayoutProps {
+  children: ReactNode;
+}
+
+export default function RootLayout({ children }: RootLayoutProps): React.ReactElement {
   return (
     <html lang="en">
       <body>

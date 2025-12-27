@@ -14,7 +14,67 @@
  * - zIndex: 레이어 순서
  */
 
-const componentTokenMap = {
+// ============================================================
+// Type Definitions
+// ============================================================
+
+interface TokenItem {
+  token: string;
+  role: string;
+}
+
+interface TokenCategory {
+  items: TokenItem[];
+  affects: string;
+  howToUse: string;
+}
+
+interface ComponentTokens {
+  palette?: TokenCategory;
+  typography?: TokenCategory;
+  spacing?: TokenCategory;
+  shape?: TokenCategory;
+  shadows?: TokenCategory;
+  transitions?: TokenCategory;
+  zIndex?: TokenCategory;
+}
+
+interface StateTokens {
+  hover?: string;
+  focus?: string;
+  active?: string;
+  disabled?: string;
+  selected?: string;
+  sortActive?: string;
+  error?: string;
+}
+
+interface ComponentDefinition {
+  name: string;
+  description: string;
+  variants?: string[];
+  sizes?: string[];
+  severities?: string[];
+  subComponents?: string[];
+  tokens: ComponentTokens;
+  stateTokens?: StateTokens;
+}
+
+interface TokenCategoryMeta {
+  name: string;
+  description: string;
+  figmaAnalogy: string;
+  icon: string;
+}
+
+type ComponentTokenMap = Record<string, ComponentDefinition>;
+type TokenCategories = Record<string, TokenCategoryMeta>;
+
+// ============================================================
+// Component Token Map Data
+// ============================================================
+
+const componentTokenMap: ComponentTokenMap = {
   // ============================================================
   // 1. Button
   // ============================================================
@@ -557,7 +617,7 @@ const componentTokenMap = {
  * 토큰 카테고리 메타데이터
  * 각 토큰 카테고리의 설명과 피그마 비유
  */
-const tokenCategories = {
+const tokenCategories: TokenCategories = {
   palette: {
     name: 'Palette',
     description: '색상 토큰',
@@ -605,7 +665,7 @@ const tokenCategories = {
 /**
  * 컴포넌트 목록 (순서대로)
  */
-const componentList = [
+const componentList: string[] = [
   'Button',
   'Typography',
   'TextField',
@@ -619,4 +679,5 @@ const componentList = [
 ];
 
 export { componentTokenMap, tokenCategories, componentList };
+export type { ComponentDefinition, TokenCategory, TokenItem, StateTokens, TokenCategoryMeta };
 export default componentTokenMap;

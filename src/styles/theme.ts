@@ -1,5 +1,6 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, ThemeOptions, PaletteOptions, TypographyOptions, Components, Theme } from '@mui/material/styles';
 import { blueGrey, grey } from '@mui/material/colors';
+import type { CustomShadows } from '../types/theme.d';
 
 /**
  * 디자인 토큰 정의
@@ -11,7 +12,7 @@ import { blueGrey, grey } from '@mui/material/colors';
 // ============================================================
 // 1. Color Tokens (색상 토큰)
 // ============================================================
-const palette = {
+const palette: PaletteOptions = {
   // 브랜드 색상
   primary: {
     light: '#6666FF',
@@ -96,7 +97,7 @@ const palette = {
 // ============================================================
 // 2. Typography Tokens (타이포그래피 토큰)
 // ============================================================
-const typography = {
+const typography: TypographyOptions = {
   // 기본 폰트 패밀리
   fontFamily: [
     '"Pretendard Variable"',
@@ -115,9 +116,6 @@ const typography = {
     '"Segoe UI Symbol"',
     'sans-serif',
   ].join(','),
-
-  // 헤딩 폰트 패밀리
-  headingFontFamily: '"Outfit", "Pretendard Variable", Pretendard, sans-serif',
 
   // 폰트 크기 기준
   fontSize: 14,
@@ -221,6 +219,9 @@ const typography = {
   },
 };
 
+// 헤딩 폰트 패밀리 (커스텀 속성)
+const headingFontFamily = '"Outfit", "Pretendard Variable", Pretendard, sans-serif';
+
 // ============================================================
 // 3. Spacing Token (간격 토큰)
 // ============================================================
@@ -236,7 +237,7 @@ const shape = {
 // ============================================================
 // 5. Shadow Tokens (그림자 토큰)
 // ============================================================
-const customShadows = {
+const customShadows: CustomShadows = {
   none: 'none',
   sm: '0 0 12px rgba(0, 0, 0, 0.06)',
   md: '0 0 16px rgba(0, 0, 0, 0.08)',
@@ -295,7 +296,7 @@ const transitions = {
 // ============================================================
 // 9. Component Overrides (컴포넌트 오버라이드)
 // ============================================================
-const components = {
+const components: Components<Theme> = {
   MuiCssBaseline: {
     styleOverrides: {
       body: {
@@ -352,7 +353,7 @@ const components = {
 // ============================================================
 // Theme 생성
 // ============================================================
-const theme = createTheme({
+const themeOptions: ThemeOptions = {
   palette,
   typography,
   spacing,
@@ -361,9 +362,11 @@ const theme = createTheme({
   zIndex,
   transitions,
   components,
-});
+};
 
-// 커스텀 속성 추가 (타입 확장 없이 접근 가능하도록)
+const theme = createTheme(themeOptions);
+
+// 커스텀 속성 추가
 theme.customShadows = customShadows;
 
 export default theme;
@@ -372,6 +375,7 @@ export default theme;
 export {
   palette,
   typography,
+  headingFontFamily,
   spacing,
   shape,
   customShadows,
